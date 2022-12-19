@@ -18,7 +18,6 @@ func NewData(path string) (*data, error) {
 	return &data{
 		file: file,
 	}, nil
-
 }
 
 func (d *data) close() error {
