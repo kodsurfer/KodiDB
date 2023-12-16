@@ -10,14 +10,15 @@ type data struct {
 	pagesize int
 }
 
-func NewData(path string) (*data, error) {
+func NewData(path string, pagesize int) (*data, error) {
 	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		return nil, err
 	}
 
 	return &data{
-		file: file,
+		file:     file,
+		pagesize: pagesize,
 	}, nil
 }
 
