@@ -1,6 +1,9 @@
 package main
 
-import "sync"
+import (
+	os "os"
+	"sync"
+)
 
 type keyLocks struct {
 	sync.RWMutex
@@ -32,4 +35,21 @@ func (k *keyLocks) list() []uint64 {
 
 type DB struct {
 	lock sync.RWMutex
+	data *data
+}
+
+func Open(filepath string) (*DB, error) {
+	pagesize := os.Getpagesize()
+
+	newData, err := NewData(filepath, pagesize)
+	if err != nil {
+		return nil, err
+	}
+
+	db := &DB{
+		lock: sync.RWMutex{},
+		data: newData,
+	}
+
+	return db, nil
 }
