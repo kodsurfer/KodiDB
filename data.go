@@ -6,7 +6,8 @@ import (
 )
 
 type data struct {
-	file *os.File
+	file     *os.File
+	pagesize int
 }
 
 func NewData(path string) (*data, error) {
@@ -14,7 +15,7 @@ func NewData(path string) (*data, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return &data{
 		file: file,
 	}, nil
@@ -28,6 +29,6 @@ func (d *data) close() error {
 		}
 		d.file = nil
 	}
-	
+
 	return nil
 }
